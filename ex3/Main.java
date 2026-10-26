@@ -3,8 +3,9 @@ package ex3;
 import java.util.concurrent.Semaphore;
 
 public class Main {
-    static int comptador = 0;
-    static Semaphore mutex = new Semaphore(1);
+    public static int comptador = 0;
+    public static Semaphore mutex = new Semaphore(1);
+
     public static void main(String[] args) throws InterruptedException {
         Incrementador i1 = new Incrementador(mutex);
         Incrementador i2 = new Incrementador(mutex);
@@ -14,12 +15,10 @@ public class Main {
 
         incrementador1.start();
         incrementador2.start();
-        
-        for(int i = 1; i<10000000; i++) {
-            incrementador1.run();
-            incrementador2.run();
-        }
-        
+
+        incrementador1.join();
+        incrementador2.join();
+
         System.out.println(comptador);
     }
 }

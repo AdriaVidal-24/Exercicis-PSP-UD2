@@ -12,14 +12,13 @@ public class Incrementador implements Runnable{
     @Override
     public void run() {
         try {
-            mutex.acquire();
-            for(int i = 0; i<100; i++) {
+            for(int i = 0; i<1000000; i++) {
+                mutex.acquire();
                 Main.comptador++;
+                mutex.release();
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
-        } finally {
-            mutex.release();
         }
     }
     
